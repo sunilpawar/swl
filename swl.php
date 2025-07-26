@@ -108,3 +108,33 @@ function swl_civicrm_navigationMenu( &$params ) {
     'permission' => 'administer CiviCRM',
   ]);
 }
+
+function swl_civicrm_post_new($op, $objectName, $objectId, &$objectRef) {
+  if ($objectName == 'Contact' && in_array($op, ['create', 'edit', 'delete'])) {
+    // Queue contact for sync
+    CRM_Swl_Utils_Queue::addContactToQueue($objectId, $op);
+  }
+
+  if ($objectName == 'GroupContact' && in_array($op, ['create', 'delete'])) {
+    // Queue group membership change
+    CRM_Swl_Utils_Queue::addGroupContactToQueue($objectRef['contact_id'], $objectRef['group_id'], $op);
+  }
+}
+
+function swl_civicrm_managed(&$entities) {
+  // Create scheduled jobs
+  $entities[] = [
+    'module' => 'com.example.swl',
+    'name' => 'swl_contact_sync',
+    'entity' => 'Job',
+    'params' => [
+      'version' => 3,
+      'name' => 'SWL Contact Sync',
+      'description' => 'Synchronize CiviCRM contacts to SWL',
+      'run_frequency' => 'Hourly',
+      'api_entity' => 'SwlSync',
+      'api_action' => 'contacts',
+      'is_active' => 1,
+    ],
+  ];
+}
