@@ -1,0 +1,37 @@
+diff --git a/cron_update_profile.php b/cron_update_profile.php
+index 8bcdffb..8ecdfde 100644
+--- a/cron_update_profile.php
++++ b/cron_update_profile.php
+@@ -5,7 +5,7 @@ require_once 'CRM/Core/Config.php';
+ define('DRUPAL_ROOT', '/home/pppnet/www/www');
+ require_once DRUPAL_ROOT . '/includes/bootstrap.inc';
+ drupal_bootstrap(DRUPAL_BOOTSTRAP_FULL);
+-
++error_reporting(E_ALL ^ E_NOTICE); 
+ 
+ class SwlCronProfileSync {
+   public $_id = '';
+@@ -16,7 +16,7 @@ class SwlCronProfileSync {
+     echo "Start Pulling swl user...";
+     CRM_Swl_Utils::getUser();
+     echo "completed Pulling swl user.";
+-    $sql = "select * from civicrm_swl_user_details";
++    $sql = "select * from civicrm_swl_user_details where contact_id is NOT NULL  AND user_id > 7259  order by user_id desc";
+     $dao = CRM_Core_DAO::executeQuery( $sql, CRM_Core_DAO::$_nullArray );
+     $i = 1;
+     $params = array();
+@@ -31,6 +31,14 @@ class SwlCronProfileSync {
+         $contactID = reset($contactIDs);
+       }
+       if (!empty($swlUserId) && !empty($contactID)) {
++      /*
++       $swl = CRM_Swl_Utils::swl();
++       $parameters = array();
++       $parameters['user_id'] = $swlUserId;
++       $parameters['block_id'] = CRM_Core_BAO_Setting::getItem(CRM_Swl_Utils::SWL_SETTING_GROUP, 'swl_profile_block', NULL, FALSE);
++        $listAll = $swl->usersGetProfileBlock(CRM_Swl_Utils::swlparams($parameters));
++        print_r($listAll);
++        */
+         CRM_Swl_Utils::userEditProfileBlock($swlUserId, $params, $contactID);
+ 
+       }

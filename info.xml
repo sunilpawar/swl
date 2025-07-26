@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<extension key="com.civibridge.sync.swl" type="module">
+  <file>swl</file>
+  <name>Small World Lab</name>
+  <description>Small World Lab</description>
+  <license>AGPL-3.0</license>
+  <maintainer>
+    <author>Sunil Pawar</author>
+    <email>esunil.pawar@gmail.com</email>
+  </maintainer>
+  <releaseDate>2016-08-19</releaseDate>
+  <version>1.0</version>
+  <develStage>alpha</develStage>
+  <compatibility>
+    <ver>5.38</ver>
+  </compatibility>
+  <comments>This is a new, undeveloped module</comments>
+  <civix>
+    <namespace>CRM/Swl</namespace>
+    <format>23.02.1</format>
+  </civix>
+  <mixins>
+    <mixin>menu-xml@1.0.0</mixin>
+    <mixin>mgd-php@1.0.0</mixin>
+    <mixin>smarty-v2@1.0.1</mixin>
+  </mixins>
+  <classloader>
+    <psr0 prefix="CRM_" path="."/>
+    <psr4 prefix="Civi\" path="Civi"/>
+  </classloader>
+  <upgrader>CRM_Swl_Upgrader</upgrader>
+</extension>

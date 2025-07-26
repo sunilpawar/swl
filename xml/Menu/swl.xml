@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<menu>
+  <item>
+    <path>civicrm/swl/settings</path>
+    <page_callback>CRM_Swl_Form_Setting</page_callback>
+    <title>Setting</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/swl/settings/api4</path>
+    <page_callback>CRM_Swl_Form_Settingapi4</page_callback>
+    <title>Setting API4</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/swl/sync</path>
+    <page_callback>CRM_Swl_Form_Sync</page_callback>
+    <title>Sync</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/swl/pull</path>
+    <page_callback>CRM_Swl_Form_Pull</page_callback>
+    <title>Pull</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/swl/webhook</path>
+    <page_callback>CRM_Swl_Page_Webhook</page_callback>
+    <title>Webhook</title>
+    <access_callback>1</access_callback>
+  </item>
+  <item>
+    <path>civicrm/swl/swluser</path>
+    <page_callback>CRM_Swl_Form_Swluser</page_callback>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+</menu>
